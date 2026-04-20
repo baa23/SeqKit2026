@@ -4,7 +4,7 @@
 [project]
 
 # The name of your package as it will appear on PyPI and in your installed packages
-name = "SeqKitSTP"
+name = "baaSeqKit"
 
 # Fields that are NOT defined here but loaded dynamically elsewhere
 # In this case, dependencies are read from requirements.txt, and the code to do the reading from reuirements.txt
