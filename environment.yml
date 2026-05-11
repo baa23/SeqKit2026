@@ -1,6 +1,6 @@
 # Name of the Conda environment
 # This is what you’ll use with: conda activate seqkit2026
-name: baaseqkit2026
+name: baaseqkit
 
 # Channels are sources where Conda looks for packages
 # Order matters: Conda searches top → bottom
