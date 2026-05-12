@@ -12,22 +12,13 @@ TEACHING TAKEAWAY
 
 → Simple, safe, and scalable logging
 """
-
-# --------------------------------------------------
-# STEP 1: Import logging setup function
-# --------------------------------------------------
-# No side effects — this only imports the function
+from pathlib import Path
 
 from baaSeqKit.logger import setup_logging
 
+from baaSeqKit.modules.string_slice import slice_string
 
-# --------------------------------------------------
-# STEP 2: Import application modules
-# --------------------------------------------------
-# These modules will create loggers using __name__,
-# but they will only behave correctly AFTER setup_logging()
-
-from baaSeqKit.modules import string_slice
+BLOCK_SIZE = 10
 
 # --------------------------------------------------
 # STEP 3: Main execution function
@@ -41,7 +32,10 @@ def main():
     # Initialise logging (CRITICAL STEP)
     setup_logging()
 
-    # TODO: parse string and call slice function
+    # parse string from file and call slice function
+    data = Path("string.txt").read_text().strip()
+    print(slice_string(data, " ", BLOCK_SIZE))
+
 
 # --------------------------------------------------
 # ENTRY POINT GUARD
