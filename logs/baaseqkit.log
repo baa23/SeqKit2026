@@ -1,6 +1,0 @@
-2026-05-12 11:41:08,452 | ERROR | baaSeqKit | logging_demo.py:53 | ERROR: Something failed during execution.
-2026-05-12 11:41:08,452 | CRITICAL | baaSeqKit | logging_demo.py:55 | CRITICAL: Serious failure - program may stop.
-2026-05-12 11:42:38,741 | ERROR | baaSeqKit | logging_demo.py:53 | ERROR: Something failed during execution.
-2026-05-12 11:42:38,742 | CRITICAL | baaSeqKit | logging_demo.py:55 | CRITICAL: Serious failure - program may stop.
-2026-05-12 11:43:03,321 | ERROR | baaSeqKit | logging_demo.py:53 | ERROR: Something failed during execution.
-2026-05-12 11:43:03,321 | CRITICAL | baaSeqKit | logging_demo.py:55 | CRITICAL: Serious failure - program may stop.
