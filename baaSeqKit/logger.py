@@ -1,114 +1,49 @@
-# logger.py
 """
-LOGGER SETUP FOR SeqKitSTP (DICTCONFIG VERSION)
+This file creates (or retrives) the logger.
 
-----------------------------------------
-WHAT THIS FILE DOES
-----------------------------------------
-This file defines how logging is activated for the project.
+It then checks no handlers already exist (i.e. first import/run).
+If not then it will configure handlers and add to the logger
 
-We load configuration from settings.py and apply it
-WHEN explicitly requested.
-
-----------------------------------------
-HOW TO USE
-----------------------------------------
-Call the setup function ONCE at application start:
-
-    from SeqKitSTP.logger import setup_logging
-    setup_logging()
-
-After that, all modules can safely use logging.
-
-----------------------------------------
-SIMPLE IDEA
-----------------------------------------
-settings.py → defines logging
-logger.py   → ACTIVATES logging (on demand)
-your files  → use logging
-
-----------------------------------------
-WHY USE A FUNCTION?
-----------------------------------------
-
-✔ Avoids side effects on import
-✔ Gives explicit control over when logging starts
-✔ Prevents accidental reconfiguration
-✔ Matches best practice in larger applications
-
-----------------------------------------
-IMPORTANT
-----------------------------------------
-✔ Do NOT create loggers here
-✔ Do NOT define handlers here
-✔ Only apply configuration
-
-----------------------------------------
-ADVANCED BEHAVIOUR (IMPORTANT CONCEPT)
-----------------------------------------
-
-✔ If you DO NOT explicitly name a logger:
-
-    logging.getLogger(__name__)
-
-Python automatically creates a logger based on the
-module path (e.g. SeqKitSTP.core.utils)
-
-✔ It is best practice to initialise logging at the
-root of your installable package (e.g. SeqKitSTP)
-so all modules inherit consistent behaviour
-
-✔ Hierarchy behaviour:
-- Loggers inherit configuration from their parents
-- Ultimately, everything inherits from the ROOT logger
-  unless explicitly overridden
-
-✔ What this means in practice:
-
-- If you have NOT explicitly defined a logger:
-  → it inherits level, handlers, and formatting from ROOT
-
-- So by default:
-  → all unnamed loggers follow top-level configuration
-
-✔ Best practice:
-- Use __name__ in modules:
-    logger = logging.getLogger(__name__)
-
-✔ Granular control:
-- In larger systems (e.g. web apps):
-  you can override behaviour per module/package
-  using LOGGING_CONFIG["loggers"]
-
-----------------------------------------
-TEACHING TAKEAWAY
-----------------------------------------
-
-✔ Named logger in config → explicit control
-✔ No named logger        → inherits from root
-✔ setup_logging()        → single point of activation
-
-→ Explicit, predictable, scalable logging
+The logger can then be used in another file/script
 """
 
-import logging.config
+import logging
+import os
 
-from SeqKitSTP.settings import LOGGING_CONFIG
+# Create (or retrieve) the logger
+logger = logging.getLogger("baaSeqKit")
+logger.setLevel(logging.DEBUG)
 
+# Prevent duplicate handlers if imported multiple times
+# Will only run if handlers don't exist i.e. first import
+if not logger.handlers:
 
-# --------------------------------------------------
-# LOGGING ACTIVATION FUNCTION
-# --------------------------------------------------
-def setup_logging():
-    """
-    Apply the logging configuration.
+    # Find project root (1 level up from this file)
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    project_root = os.path.abspath(os.path.join(current_dir, ".."))
 
-    This should be called ONCE at application startup.
+    # Create logs directory
+    logs_dir = os.path.join(project_root, "logs")
+    os.makedirs(logs_dir, exist_ok=True)
 
-    After this:
-    ✔ Logging is globally configured
-    ✔ All modules can use logging.getLogger()
-    ✔ Hierarchical inheritance works automatically
-    """
+    # Log file path
+    log_file = os.path.join(logs_dir, "baaseqkit.log")
 
-    logging.config.dictConfig(LOGGING_CONFIG)
+    # Log message format
+    formatter = logging.Formatter(
+        "%(asctime)s | %(levelname)s | %(name)s | %(filename)s:%(lineno)d | %(message)s"
+    )
+
+    # Console handler (prints to terminal)
+    console_handler = logging.StreamHandler()
+    console_handler.setLevel(logging.DEBUG)
+    console_handler.setFormatter(formatter)
+
+    # File handler (writes to file)
+    file_handler = logging.FileHandler(log_file)
+    file_handler.setLevel(logging.ERROR)
+    file_handler.setFormatter(formatter)
+
+    # Attach handlers to logger
+    logger.addHandler(console_handler)
+    logger.addHandler(file_handler)
