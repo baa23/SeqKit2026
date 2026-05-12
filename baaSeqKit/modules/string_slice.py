@@ -4,7 +4,6 @@ This file contains functions to slice a string into specified blocks
 import logging
 
 # Step 2: Get the logger (this is the key idea)
-import logging
 logger = logging.getLogger(__name__)
 
 def slice_string(s, d, n):

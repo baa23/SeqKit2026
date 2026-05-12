@@ -27,8 +27,7 @@ from baaSeqKit.logger import setup_logging
 # These modules will create loggers using __name__,
 # but they will only behave correctly AFTER setup_logging()
 
-from baaSeqKit.modules import logging_demo
-
+from baaSeqKit.modules import string_slice
 
 # --------------------------------------------------
 # STEP 3: Main execution function
@@ -42,9 +41,7 @@ def main():
     # Initialise logging (CRITICAL STEP)
     setup_logging()
 
-    # Run demo module
-    logging_demo.logging_demo()
-
+    # TODO: parse string and call slice function
 
 # --------------------------------------------------
 # ENTRY POINT GUARD
