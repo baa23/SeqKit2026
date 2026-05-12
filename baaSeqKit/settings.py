@@ -93,7 +93,7 @@ LOGGING_CONFIG = {
 
 
     "loggers": {
-        "SeqKit2026": {
+        "baaSeqKit": {
             "level": "DEBUG",
             "handlers": ["console", "file"],
             "propagate": False
