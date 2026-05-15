@@ -23,7 +23,6 @@ def main():
     # Get string and return string in blocks
     modified_string = string_to_blocks("string.txt", DELIMITER, BLOCK_SIZE)
     logger.debug("return from string_to_blocks function complete")
-    print(modified_string)
 
     # Convert modified_string to GenBank format
     genbank_string = convert_to_GenBank(modified_string)
@@ -33,7 +32,6 @@ def main():
         print(row)
 
     logger.debug("output printed to console")
-    logger.info("Program completed")
 
 
 def string_to_blocks(f, d, n):
@@ -83,18 +81,19 @@ def convert_to_GenBank(s):
     number_of_blocks = len(blocks)
 
     while index < number_of_blocks:
-        blocks_added = 0
+        blocks_added = False
         growing_string = []
 
         for _ in range(6):
-            if blocks_added == 0:
-                number = 1 + (row * 60)
+            if index >= number_of_blocks:
+                break
 
+            if not blocks_added:
                 growing_string.append(str(1 + (row * 60)).rjust(4))
                 logger.debug("string starts with %s", growing_string[0])
-                
+    
             growing_string.append(blocks[index])
-            blocks_added += 1
+            blocks_added = True
 
             index += 1
         

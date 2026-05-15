@@ -12,33 +12,23 @@ TEACHING TAKEAWAY
 
 → Simple, safe, and scalable logging
 """
-
-# --------------------------------------------------
-# STEP 1: Import logging setup function
-# --------------------------------------------------
-# No side effects — this only imports the function
-
+import logging
 from baaSeqKit.logger import setup_logging
 from baaSeqKit.modules import string_GenBank
 
-# --------------------------------------------------
-# STEP 3: Main execution function
-# --------------------------------------------------
+# Get a logger for this module
+logger = logging.getLogger(__name__)
+
 def main():
     """
     Main application entry point.
-
     """
 
     # Initialise logging (CRITICAL STEP)
     setup_logging()
 
     string_GenBank.main()
-
-# --------------------------------------------------
-# ENTRY POINT GUARD
-# --------------------------------------------------
-# Ensures this script only runs when executed directly
+    logger.info("Program completed")
 
 if __name__ == "__main__":
     main()
