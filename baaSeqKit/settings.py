@@ -56,41 +56,48 @@ LOGGING_CONFIG = {
             "level": "WARNING",
             "formatter": "standard",
         },
+
+        # --------------------------------------------------
+        # ROTATING FILE HANDLER (UPDATED)
+        # --------------------------------------------------
+        #
+        # This replaces the basic FileHandler with a
+        # RotatingFileHandler to prevent unlimited growth.
+        #
+
         "file": {
-            "class": "logging.FileHandler",
+            "class": "logging.handlers.RotatingFileHandler",
+
+            # Only store ERROR and CRITICAL messages in file
+            # (keeps disk usage focused on important events)
             "level": "DEBUG",
+
             "formatter": "standard",
             "filename": LOG_FILE,
+            # --------------------------------------------------
+            # ROTATION SETTINGS (IMPORTANT TEACHING POINT)
+            # --------------------------------------------------
+            #
+            # maxBytes:
+            # Maximum size of the log file BEFORE rotation happens.
+            #
+            # Example:
+            # 1_048_576 bytes = 1 MB
+            #
+            # Here we set a small size for demonstration.
+            #
+            "maxBytes": 1024 * 5,  # 50 KB
+            "backupCount": 3,
+
+            # Optional: ensures file opens safely even if reused
+            "encoding": "utf-8",
         },
     },
+        
 
     # --------------------------------------------------
     # OPTIONAL: NAMED LOGGER (TEACHING EXAMPLE)
     # --------------------------------------------------
-    # Why define a named logger?
-    # - Gives fine-grained control over specific parts of your app
-    # - Lets you tune verbosity per module/package
-    #
-    # BEST PRACTICE:
-    # - Name your logger after your *top-level package*
-    #   e.g. package: seqkitstp → logger: "seqkitstp"
-    #
-    # WHY?
-    # - Keeps logs consistent and predictable
-    # - Makes filtering/searching easier
-    # - Matches how logging.getLogger(__name__) resolves names
-    #
-    # HOWEVER:
-    # You can deliberately override naming if it improves clarity.
-    #
-    # Example:
-    # - Your package is "seqkitstp"
-    # - But you want cleaner logs → use "SeqKit"
-    #
-    # Trade-off:
-    # ✔ Cleaner log labels
-    # ✖ Slightly less direct mapping to Python module paths
-
 
     "loggers": {
         "baaSeqKit": {
