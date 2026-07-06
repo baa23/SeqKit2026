@@ -52,9 +52,6 @@ def main():
     converted_RNA = sequence_manipulation.transcribe_DNA(input_string)
     print(f"RNA: {converted_RNA}")
 
-def check_RNA(sequence):
-    # TODO checks that the input is valid RNA
-    return True
 
 def check_DNA(sequence):
     """

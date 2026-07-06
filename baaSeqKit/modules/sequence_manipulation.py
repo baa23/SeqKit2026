@@ -19,8 +19,3 @@ def transcribe_DNA(sequence):
     sequence = sequence.replace("T", "U").lower()
 
     return sequence
-
-def translate_RNA(sequence):
-    # TODO take RNA and convert to protein
-    logger.info("Translate_RNA function called")
-    return True
